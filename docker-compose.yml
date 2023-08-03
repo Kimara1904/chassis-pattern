@@ -1,0 +1,30 @@
+version: '3.4'
+services:
+  db:
+    image: 'mcr.microsoft.com/mssql/server:2022-latest'
+
+    ports:
+      - '1433:1433'
+    
+    environment:
+      SA_PASSWORD: 'ChassisLibrary123!'
+      ACCEPT_EULA: 'Y'
+
+  user-service:
+    build: 
+      context: ./Library/UserService
+      dockerfile: Dockerfile
+
+    ports:
+      - '8080:80'
+      - '44340:443'
+
+    command: >
+      bash -c "dotnet ef database update && dotnet run"
+      
+    depends_on:
+      - db
+
+networks:
+  default:
+    driver: bridge

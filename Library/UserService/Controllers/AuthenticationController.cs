@@ -14,14 +14,14 @@ namespace UserService.Controllers
             _service = authService;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ActionResult<string>> Register(RegisterDTO newUser)
         {
             await _service.Register(newUser);
             return Ok(string.Format("Successfully registered user with username: {0}", newUser.Username));
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<ActionResult<TokenDTO>> Login(LoginDTO credentials)
         {
             var result = await _service.Login(credentials);

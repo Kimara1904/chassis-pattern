@@ -25,10 +25,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Exceptions\Exceptions.csproj" />
+    <PackageReference Include="WebApiExceptionsLibrary" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
