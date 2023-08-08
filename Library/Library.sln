@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService", "UserService\UserService.csproj", "{7549BB5B-B7B2-46F0-9A53-85092B9A6963}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{0BDCB8DC-FE1E-4705-BFAD-C0A3E40EC8DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exceptions", "Exceptions\Exceptions.csproj", "{0BDCB8DC-FE1E-4705-BFAD-C0A3E40EC8DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{718723ED-15A4-45B1-82DF-E12D0A4C40F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0BDCB8DC-FE1E-4705-BFAD-C0A3E40EC8DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BDCB8DC-FE1E-4705-BFAD-C0A3E40EC8DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BDCB8DC-FE1E-4705-BFAD-C0A3E40EC8DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{718723ED-15A4-45B1-82DF-E12D0A4C40F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718723ED-15A4-45B1-82DF-E12D0A4C40F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718723ED-15A4-45B1-82DF-E12D0A4C40F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718723ED-15A4-45B1-82DF-E12D0A4C40F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

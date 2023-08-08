@@ -20,8 +20,16 @@ services:
       - '44340:443'
 
     command: >
-      bash -c "dotnet ef database update && dotnet run"
-      
+      bash -c "dotnet ef database update"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "ChassisLibrary123!"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: ../https/aspnetapp.pfx
+    volumes:
+      - ./Cert/.aspnet/https:/https:ro
+
     depends_on:
       - db
 

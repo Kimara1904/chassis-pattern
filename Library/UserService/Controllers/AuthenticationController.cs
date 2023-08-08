@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UserService.DTOs;
 using UserService.Interface;
 
@@ -14,6 +15,7 @@ namespace UserService.Controllers
             _service = authService;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<string>> Register(RegisterDTO newUser)
         {
@@ -21,6 +23,7 @@ namespace UserService.Controllers
             return Ok(string.Format("Successfully registered user with username: {0}", newUser.Username));
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<TokenDTO>> Login(LoginDTO credentials)
         {

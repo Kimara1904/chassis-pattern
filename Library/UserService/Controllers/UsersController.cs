@@ -5,7 +5,7 @@ using UserService.Interface;
 
 namespace UserService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
