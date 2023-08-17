@@ -19,24 +19,25 @@ namespace BookService.Repositories
             _context.Set<T>().Update(entity);
         }
 
-        public Task<T?> FindAsync(int id)
+        public async Task<T?> FindAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public Task<IQueryable<T>> GetAllAsync()
+        public async Task<IQueryable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var results = await _context.Set<T>().ToListAsync();
+            return results.AsQueryable();
         }
 
-        public Task Insert(T entity)
+        public async Task Insert(T entity)
         {
-            throw new NotImplementedException();
+            await _context.Set<T>().AddAsync(entity);
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
         }
     }
 }
