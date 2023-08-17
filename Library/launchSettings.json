@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "apigateway",
+      "composeLaunchUrl": "{Scheme}://localhost:44340/swagger",
+      "serviceActions": {
+        "apigateway": "StartDebugging",
+        "userservice": "StartDebugging",
+        "db": "StartWithoutDebugging"
+      }
+    }
+  }
+}

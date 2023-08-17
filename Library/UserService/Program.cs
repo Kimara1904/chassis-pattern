@@ -22,6 +22,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSwaggerUI",
+        builder =>
+        {
+            builder.WithOrigins("https://host.docker.internal:44340")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+            builder.WithOrigins("http://host.docker.internal:8080")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
@@ -112,9 +129,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    using var scope = app.Services.CreateScope();
+    var userContext = scope.ServiceProvider.GetRequiredService<UserDBContext>();
+    userContext.Database.EnsureCreated();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowSwaggerUI");
 
 app.UseAuthentication();
 app.UseAuthorization();

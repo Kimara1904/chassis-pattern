@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      - '8080:80'
+      - '44340:443'
+    depends_on:
+        - userservice
+
+  userservice:
+    container_name: userService
+    image: ${DOCKER_REGISTRY-}userservice
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+
+    ports:
+      - '8081:80'
+
+    depends_on:
+      - db
+
+    environment:
+      - DB_HOST=sql_server2022
+      - DB_NAME=LibraryUserDB
+      - DB_SA_PASSWORD=ChassisLibrary123!
+
+  db:
+    image: 'mcr.microsoft.com/mssql/server:2022-latest'
+
+    container_name: sql_server2022
+
+    ports:
+      - '1433:1433'
+    
+    environment:
+      - SA_PASSWORD=ChassisLibrary123!
+      - ACCEPT_EULA=Y
+
+networks:
+  default:
+    driver: bridge
+

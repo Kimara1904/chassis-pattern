@@ -19,6 +19,8 @@ namespace UserService.Mapper
 
                     return true;
                 }));
+            CreateMap<RegisterDTO, User>();
+            CreateMap<User, UserDTO>();
         }
     }
 }

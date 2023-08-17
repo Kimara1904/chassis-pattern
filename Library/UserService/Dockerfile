@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
@@ -20,4 +19,11 @@ RUN dotnet publish "UserService.csproj" -c Release -o /app/publish /p:UseAppHost
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+RUN dotnet tool install --global dotnet-ef
+
+WORKDIR /app/Migrations
+CMD ["dotnet", "ef", "database", "update"]
+
+WORKDIR /app
 ENTRYPOINT ["dotnet", "UserService.dll"]

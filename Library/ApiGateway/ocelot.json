@@ -1,48 +1,82 @@
 {
+  "GlobalConfiguration": {
+
+  },
   "Routes": [
     {
-      "UpstreamPathTemplate": "/api/auth/register",
+      "UpstreamPathTemplate": "/auth/register",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/api/auth/register",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44340
+          "Host": "host.docker.internal",
+          "Port": 8081
         }
-      ]
+      ],
+      "SwaggerKey": "authApi"
     },
     {
-      "UpstreamPathTemplate": "/api/auth/login",
+      "UpstreamPathTemplate": "/auth/login",
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44340
+          "Host": "host.docker.internal",
+          "Port": 8081
         }
-      ]
+      ],
+      "SwaggerKey": "authApi"
     },
     {
-      "UpstreamPathTemplate": "/api/users",
+      "UpstreamPathTemplate": "/users",
       "UpstreamHttpMethod": [ "Get", "Patch" ],
       "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44340
+          "Host": "host.docker.internal",
+          "Port": 8081
+        }
+      ],
+      "SwaggerKey": "userApi"
+    },
+    {
+      "UpstreamPathTemplate": "/users/role",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/api/users/role",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8081
+        }
+      ],
+      "SwaggerKey": "userApi"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "authApi",
+      "Config": [
+        {
+          "Name": "Authentication API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8081/swagger/v1/swagger.json"
         }
       ]
     },
     {
-      "UpstreamPathTemplate": "/api/users/role",
-      "UpstreamHttpMethod": [ "Put" ],
-      "DownstreamPathTemplate": "/api/users/role",
-      "DownstreamHostAndPorts": [
+      "Key": "userApi",
+      "Config": [
         {
-          "Host": "localhost",
-          "Port": 44340
+          "Name": "User API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8081/swagger/v1/swagger.json"
         }
       ]
     }
-  ]
+  ],
+  "DangerousAcceptAnyServerCertificateValidator": true
 }
