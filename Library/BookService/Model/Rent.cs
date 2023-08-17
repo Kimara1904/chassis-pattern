@@ -1,8 +1,7 @@
 ﻿namespace BookService.Model
 {
-    public class Rent
+    public class Rent : BookEntityBase
     {
-        public int Id { get; set; }
         public int BookId { get; set; }
         public virtual Book Book { get; set; } = null!;
         public string Username { get; set; } = null!;

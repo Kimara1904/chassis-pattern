@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookService.Migrations
 {
     [DbContext(typeof(BookDBContext))]
-    [Migration("20230817190445_InitialBookServiceMigration")]
+    [Migration("20230817223114_InitialBookServiceMigration")]
     partial class InitialBookServiceMigration
     {
         /// <inheritdoc />
@@ -101,6 +101,11 @@ namespace BookService.Migrations
 
                     b.Property<int>("BookId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Deleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime>("RentDate")
                         .HasColumnType("datetime2");

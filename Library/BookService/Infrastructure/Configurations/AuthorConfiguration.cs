@@ -8,6 +8,7 @@ namespace BookService.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Author> builder)
         {
+            builder.HasQueryFilter(a => !a.Deleted);
             builder.HasKey(a => a.Id);
             builder.Property(a => a.FirstName).IsRequired().HasMaxLength(20);
             builder.Property(a => a.LastName).IsRequired().HasMaxLength(20);
