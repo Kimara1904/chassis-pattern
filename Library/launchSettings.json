@@ -9,7 +9,9 @@
       "serviceActions": {
         "apigateway": "StartDebugging",
         "userservice": "StartDebugging",
-        "db": "StartWithoutDebugging"
+        "bookdb": "StartWithoutDebugging",
+        "bookservice": "StartDebugging",
+        "userdb": "StartWithoutDebugging"
       }
     }
   }

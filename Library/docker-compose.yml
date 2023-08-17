@@ -13,7 +13,6 @@ services:
         - userservice
 
   userservice:
-    container_name: userService
     image: ${DOCKER_REGISTRY-}userservice
     build:
       context: .
@@ -23,17 +22,17 @@ services:
       - '8081:80'
 
     depends_on:
-      - db
+      - userdb
 
     environment:
-      - DB_HOST=sql_server2022
+      - DB_HOST=userdb
       - DB_NAME=LibraryUserDB
       - DB_SA_PASSWORD=ChassisLibrary123!
 
-  db:
+  userdb:
     image: 'mcr.microsoft.com/mssql/server:2022-latest'
 
-    container_name: sql_server2022
+    container_name: userdb
 
     ports:
       - '1433:1433'
@@ -42,7 +41,36 @@ services:
       - SA_PASSWORD=ChassisLibrary123!
       - ACCEPT_EULA=Y
 
+  bookservice:
+    image: ${DOCKER_REGISTRY-}bookservice
+    build:
+      context: .
+      dockerfile: BookService/Dockerfile
+    ports:
+      - '8082:80'
+
+    depends_on:
+      - bookdb
+
+    environment:
+      - DB_HOST=bookdb
+      - DB_NAME=LibraryBookDB
+      - DB_SA_PASSWORD=ChassisLibrary123!
+
+  bookdb:
+    image: 'mcr.microsoft.com/mssql/server:2022-latest'
+
+    container_name: bookdb
+
+    ports:
+      - '1434:1433'
+    
+    environment:
+      - SA_PASSWORD=ChassisLibrary123!
+      - ACCEPT_EULA=Y
+
 networks:
   default:
     driver: bridge
+
 
