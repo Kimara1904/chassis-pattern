@@ -8,12 +8,12 @@ namespace BookService.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Author> builder)
         {
-            builder.HasQueryFilter(a => !a.Deleted);
+            builder.HasQueryFilter(a => !a.IsDeleted);
             builder.HasKey(a => a.Id);
             builder.Property(a => a.FirstName).IsRequired().HasMaxLength(20);
             builder.Property(a => a.LastName).IsRequired().HasMaxLength(20);
             builder.Property(a => a.Count).IsRequired();
-            builder.Property(a => a.Deleted).HasDefaultValue(false);
+            builder.Property(a => a.IsDeleted).HasDefaultValue(false);
         }
     }
 }

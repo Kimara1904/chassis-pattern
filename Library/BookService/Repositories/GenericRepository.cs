@@ -15,7 +15,7 @@ namespace BookService.Repositories
 
         public void Delete(T entity)
         {
-            entity.Deleted = true;
+            entity.IsDeleted = true;
             _context.Set<T>().Update(entity);
         }
 
