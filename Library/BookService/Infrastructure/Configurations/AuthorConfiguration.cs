@@ -12,7 +12,6 @@ namespace BookService.Infrastructure.Configurations
             builder.HasKey(a => a.Id);
             builder.Property(a => a.FirstName).IsRequired().HasMaxLength(20);
             builder.Property(a => a.LastName).IsRequired().HasMaxLength(20);
-            builder.Property(a => a.Count).IsRequired();
             builder.Property(a => a.IsDeleted).HasDefaultValue(false);
         }
     }
