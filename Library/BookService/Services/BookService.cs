@@ -45,8 +45,12 @@ namespace BookService.Services
 
         public async Task DeleteBook(int id)
         {
-            var book = await _repository._bookRepository.FindAsync(id) ??
-                throw new NotFoundException(string.Format("There is no book with id: {0}", id));
+            var book = await _repository._bookRepository.FindAsync(id);
+
+            if (book == null)
+            {
+                return;
+            }
 
             _repository._bookRepository.Delete(book);
             await _repository.SaveChanges();

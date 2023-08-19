@@ -31,8 +31,12 @@ namespace BookService.Services
         public async Task DeleteAuthor(int id)
         {
             var authorQuery = await _repository._authorRepository.GetAllAsync();
-            var author = authorQuery.Include(a => a.Books).Where(a => a.Id == id).FirstOrDefault()
-                ?? throw new NotFoundException(string.Format("There is no author with id: {0}", id));
+            var author = authorQuery.Include(a => a.Books).Where(a => a.Id == id).FirstOrDefault();
+
+            if (author == null)
+            {
+                return;
+            }
 
             author.Books.ForEach(b =>
             {
