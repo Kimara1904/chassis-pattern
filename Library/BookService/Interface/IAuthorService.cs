@@ -7,7 +7,7 @@ namespace BookService.Interface
         Task<List<AuthorDTO>> GetAllAuthors();
         Task<AuthorDTO> GetAuthor(int id);
         Task<AuthorDTO> CreateAuthor(CreateAuthorDTO newBook);
-        Task<AuthorDTO> UpdateAuthor(EditAuthorDTO newBookInfo);
+        Task<AuthorDTO> UpdateAuthor(int id, EditAuthorDTO newBookInfo);
         Task DeleteAuthor(int id);
     }
 }

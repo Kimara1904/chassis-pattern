@@ -7,5 +7,6 @@
         public string Username { get; set; } = null!;
         public DateTime RentDate { get; set; }
         public DateTime ReturnDate { get; set; }
+        public bool IsReturned { get; set; }
     }
 }

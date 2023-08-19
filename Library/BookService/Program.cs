@@ -3,7 +3,9 @@ using BookService.Infrastructure;
 using BookService.Interface;
 using BookService.Mappers;
 using BookService.Repositories;
+using BookService.Services;
 using BookService.Validators;
+using Exceptions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +33,10 @@ builder.Services.AddDbContext<BookDBContext>(opt => opt.UseSqlServer(builder.Con
 builder.Services.AddScoped<DbContext, BookDBContext>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+builder.Services.AddScoped<IBookService, BookService.Services.BookService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IRentService, RentService>();
+builder.Services.AddScoped<ExceptionHandler>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<BaseValidator>();
 
@@ -48,6 +54,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandler>();
 
 app.MapControllers();
 

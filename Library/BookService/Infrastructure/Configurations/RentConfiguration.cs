@@ -14,6 +14,7 @@ namespace BookService.Infrastructure.Configurations
             builder.Property(x => x.RentDate).IsRequired();
             builder.Property(x => x.ReturnDate).HasDefaultValue(null);
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
+            builder.Property(x => x.IsReturned).HasDefaultValue(false);
             builder.HasOne(x => x.Book).WithMany(b => b.Rents).HasForeignKey(x => x.BookId);
         }
     }

@@ -9,6 +9,7 @@ namespace BookService.Mappers
         public AuthorProfile()
         {
             CreateMap<Author, AuthorDTO>();
+            CreateMap<Author, AuthorWithBooksDTO>();
             CreateMap<CreateAuthorDTO, Author>();
             CreateMap<EditAuthorDTO, Author>()
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) =>
