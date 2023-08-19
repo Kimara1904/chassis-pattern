@@ -69,8 +69,38 @@ services:
       - SA_PASSWORD=ChassisLibrary123!
       - ACCEPT_EULA=Y
 
+  reviewservice:
+    image: ${DOCKER_REGISTRY-}reviewservice
+    build:
+      context: .
+      dockerfile: ReviewService/Dockerfile
+
+    ports:
+      - '8083:80'
+
+    depends_on:
+      - reviewdb
+
+    environment:
+      - DB_HOST=reviewdb
+      - DB_NAME=LibraryReviewDB
+      - DB_SA_PASSWORD=ChassisLibrary123!
+
+  reviewdb:
+    image: 'mcr.microsoft.com/mssql/server:2022-latest'
+
+    container_name: reviewdb
+
+    ports:
+      - '1435:1433'
+    
+    environment:
+      - SA_PASSWORD=ChassisLibrary123!
+      - ACCEPT_EULA=Y
+
 networks:
   default:
     driver: bridge
+
 
 

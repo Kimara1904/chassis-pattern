@@ -11,7 +11,8 @@
         "userservice": "StartDebugging",
         "bookdb": "StartWithoutDebugging",
         "bookservice": "StartDebugging",
-        "userdb": "StartWithoutDebugging"
+        "userdb": "StartWithoutDebugging",
+        "reviewservice": "StartDebugging"
       }
     }
   }

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\Ap
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{76AFDB73-8F5F-410D-8C33-A4599CD631A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookService", "BookService\BookService.csproj", "{FC0735DC-E42C-4B06-B5AE-5E1479912FE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService", "BookService\BookService.csproj", "{FC0735DC-E42C-4B06-B5AE-5E1479912FE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewService", "ReviewService\ReviewService.csproj", "{B6DE7F98-C929-4B79-B54A-834A4AAF2EBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{FC0735DC-E42C-4B06-B5AE-5E1479912FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC0735DC-E42C-4B06-B5AE-5E1479912FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC0735DC-E42C-4B06-B5AE-5E1479912FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6DE7F98-C929-4B79-B54A-834A4AAF2EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6DE7F98-C929-4B79-B54A-834A4AAF2EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6DE7F98-C929-4B79-B54A-834A4AAF2EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6DE7F98-C929-4B79-B54A-834A4AAF2EBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

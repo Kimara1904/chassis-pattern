@@ -24,3 +24,10 @@ services:
     ports:
       - "80"
 
+
+  reviewservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+

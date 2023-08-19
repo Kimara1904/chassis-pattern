@@ -1,0 +1,11 @@
+﻿namespace ReviewService.Model
+{
+    public class Review
+    {
+        public int Id { get; set; }
+        public int BookId { get; set; }
+        public string Comment { get; set; } = null!;
+        public int Rate { get; set; }
+        public bool Verified { get; set; }
+    }
+}
