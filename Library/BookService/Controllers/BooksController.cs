@@ -31,7 +31,7 @@ namespace BookService.Controllers
         }
 
         [Authorize]
-        [HttpGet("of-actor/{id:int}")]
+        [HttpGet("of-author/{id:int}")]
         public async Task<ActionResult<AuthorWithBooksDTO>> GetBookOfAuthor(int authorId)
         {
             return await _bookService.GetBooksByAuthorsId(authorId);

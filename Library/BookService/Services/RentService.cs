@@ -42,6 +42,14 @@ namespace BookService.Services
             return _mapper.Map<List<RentDTO>>(rents);
         }
 
+        public async Task<List<RentDTO>> GetUnReturnedUsersRents(string username)
+        {
+            var rentQurary = await _repository._rentRepository.GetAllAsync();
+            var rents = rentQurary.Include(r => r.Book).Where(r => r.Username.Equals(username) && !r.IsReturned).ToList();
+
+            return _mapper.Map<List<RentDTO>>(rents);
+        }
+
         public async Task RentBook(RentBookDTO newRent)
         {
             _ = await _repository._bookRepository.FindAsync(newRent.BookId)

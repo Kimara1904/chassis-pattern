@@ -31,7 +31,7 @@ namespace BookService.Controllers
         }
 
         [Authorize(Roles = "Admin,Librarian")]
-        [HttpGet("{username:string}")]
+        [HttpGet("{username}")]
         public async Task<ActionResult<List<RentDTO>>> GetByUsername(string username)
         {
             return await _rentService.GetRentsByUsername(username);
@@ -43,6 +43,14 @@ namespace BookService.Controllers
         {
             var username = User.Claims.First(c => c.Type == "Username").Value;
             return await _rentService.GetRentsByUsername(username);
+        }
+
+        [Authorize]
+        [HttpGet("my-unreturned")]
+        public async Task<ActionResult<List<RentDTO>>> GetByMyUnreturned()
+        {
+            var username = User.Claims.First(c => c.Type == "Username").Value;
+            return await _rentService.GetUnReturnedUsersRents(username);
         }
 
         [Authorize]

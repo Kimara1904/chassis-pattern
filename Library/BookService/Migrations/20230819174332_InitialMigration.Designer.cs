@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookService.Migrations
 {
     [DbContext(typeof(BookDBContext))]
-    [Migration("20230819134838_AddIsReturnedFieldMigration")]
-    partial class AddIsReturnedFieldMigration
+    [Migration("20230819174332_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,7 +110,9 @@ namespace BookService.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<bool>("IsReturned")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime>("RentDate")
                         .HasColumnType("datetime2");
