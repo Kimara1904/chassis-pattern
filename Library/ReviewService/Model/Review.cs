@@ -1,4 +1,6 @@
-﻿namespace ReviewService.Model
+﻿using ReviewService.Enums;
+
+namespace ReviewService.Model
 {
     public class Review
     {
@@ -6,6 +8,7 @@
         public int BookId { get; set; }
         public string Comment { get; set; } = null!;
         public int Rate { get; set; }
-        public bool Verified { get; set; }
+        public ReviewVerifiedState Verified { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

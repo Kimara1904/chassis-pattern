@@ -11,7 +11,8 @@ namespace ReviewService.Infrastructure
             builder.HasKey(x => x.Id);
             builder.Property(x => x.BookId).IsRequired();
             builder.Property(x => x.Comment).IsRequired();
-            builder.Property(x => x.Verified).HasDefaultValue(false);
+            builder.Property(x => x.IsVerified).HasDefaultValue(false);
+            builder.Property(x => x.IsDeleted).HasDefaultValue(false);
         }
     }
 }
