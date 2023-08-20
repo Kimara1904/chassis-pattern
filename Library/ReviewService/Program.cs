@@ -1,8 +1,13 @@
+using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using ReviewService.Infrastructure;
 using ReviewService.Interfaces;
+using ReviewService.Mapper;
 using ReviewService.Repository;
+using ReviewService.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,9 +44,19 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new ReviewProfile());
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 builder.Services.AddDbContext<ReviewDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("ReviewDB")));
 builder.Services.AddScoped<DbContext, ReviewDBContext>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<ReviewBaseValidator>();
 
 var app = builder.Build();
 
