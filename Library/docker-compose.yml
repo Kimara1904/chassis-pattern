@@ -98,9 +98,16 @@ services:
       - SA_PASSWORD=ChassisLibrary123!
       - ACCEPT_EULA=Y
 
+  emailmessageservice:
+    image: ${DOCKER_REGISTRY-}emailmessageservice
+    build:
+      context: .
+      dockerfile: EmailMessageService/Dockerfile
+
 networks:
   default:
     driver: bridge
+
 
 
 

@@ -12,7 +12,8 @@
         "bookdb": "StartWithoutDebugging",
         "bookservice": "StartDebugging",
         "userdb": "StartWithoutDebugging",
-        "reviewservice": "StartDebugging"
+        "reviewservice": "StartDebugging",
+        "emailmessageservice": "StartDebugging"
       }
     }
   }

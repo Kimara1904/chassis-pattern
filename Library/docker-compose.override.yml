@@ -31,3 +31,10 @@ services:
     ports:
       - "80"
 
+
+  emailmessageservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
