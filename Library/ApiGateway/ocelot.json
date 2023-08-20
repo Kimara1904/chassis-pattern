@@ -197,6 +197,71 @@
         }
       ],
       "SwaggerKey": "rentApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/reviews",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewsApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/{id}",
+      "UpstreamHttpMethod": [ "Patch" ],
+      "DownstreamPathTemplate": "/api/reviews/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewsApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/verify/{id}",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/api/reviews/verify/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewsApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/verified/{bookId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/reviews/verified/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewsApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/unverified/{bookId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/reviews/unverified/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewsApi"
     }
   ],
   "SwaggerEndPoints": [
@@ -247,6 +312,16 @@
           "Name": "Rent API",
           "Version": "v1",
           "Url": "http://host.docker.internal:8082/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "reviewApi",
+      "Config": [
+        {
+          "Name": "Review API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8083/swagger/v1/swagger.json"
         }
       ]
     }
