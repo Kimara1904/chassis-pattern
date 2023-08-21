@@ -21,17 +21,18 @@ namespace ReviewService.Services
 
         }
 
-        public async Task CreateReview(string username, CreateReviewDTO newReview)
+        public async Task CreateReview(string username, string email, CreateReviewDTO newReview)
         {
 
             var review = _mapper.Map<Review>(newReview);
 
             review.Username = username;
+            review.Email = email;
 
             await _repository.Insert(review);
             await _repository.Save();
 
-            _rabbitmqProducerService.SendMailRequest("Verify Review", "You just made review. Wait for administration to verify it.", username);
+            _rabbitmqProducerService.SendMailRequest("Verify Review", "You just made review. Wait for administration to verify it.", email);
         }
 
         public async Task EditReview(int id, string username, EditReviewDTO newReviewInfo)
@@ -73,7 +74,7 @@ namespace ReviewService.Services
             _repository.Update(review);
             await _repository.Save();
 
-            _rabbitmqProducerService.SendMailRequest("Verify Review", string.Format("Your comment is verified with state: {0}", verifyReview.VerifiedState), review.Username);
+            _rabbitmqProducerService.SendMailRequest("Verify Review", string.Format("Your comment is verified with state: {0}", verifyReview.VerifiedState), review.Email);
         }
     }
 }

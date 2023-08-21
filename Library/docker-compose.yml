@@ -80,6 +80,7 @@ services:
 
     depends_on:
       - reviewdb
+      - rabbitmq
 
     environment:
       - DB_HOST=reviewdb
@@ -110,6 +111,10 @@ services:
     build:
       context: .
       dockerfile: EmailMessageService/Dockerfile
+
+    depends_on:
+      - rabbitmq
+
     environment:
       - RABBIT_MQ_SERVER=rabbitmq
       - RABBIT_MQ_USERNAME=guest

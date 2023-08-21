@@ -39,7 +39,8 @@ namespace ReviewService.Controllers
         public async Task<ActionResult<string>> Create(CreateReviewDTO newReview)
         {
             var username = User.Claims.First(c => c.Type == "Username").Value;
-            await _reviewService.CreateReview(username, newReview);
+            var email = User.Claims.First(c => c.Type == "Email").Value;
+            await _reviewService.CreateReview(username, email, newReview);
 
             return Ok(string.Format("Successfully made comment from user: {0}", username));
         }
