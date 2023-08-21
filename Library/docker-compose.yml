@@ -85,6 +85,13 @@ services:
       - DB_HOST=reviewdb
       - DB_NAME=LibraryReviewDB
       - DB_SA_PASSWORD=ChassisLibrary123!
+      - RABBIT_MQ_SERVER=rabbitmq
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+      - RABBITMQSETTINGS__EXCHANGENAME=MailExchange
+      - RABBITMQSETTINGS__EXCHHANGETYPE=direct
+      - RABBITMQSETTINGS__QUEUENAME=mail_queue
+      - RABBITMQSETTINGS__ROUTEKEY=mail_route
 
   reviewdb:
     image: 'mcr.microsoft.com/mssql/server:2022-latest'
@@ -103,6 +110,29 @@ services:
     build:
       context: .
       dockerfile: EmailMessageService/Dockerfile
+    environment:
+      - RABBIT_MQ_SERVER=rabbitmq
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+      - RABBITMQSETTINGS__EXCHANGENAME=MailExchange
+      - RABBITMQSETTINGS__EXCHHANGETYPE=direct
+      - RABBITMQSETTINGS__QUEUENAME=mail_queue
+      - RABBITMQSETTINGS__ROUTEKEY=mail_route
+
+  rabbitmq:
+    image: "rabbitmq:3.8"
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  
+      - "15672:15672"  
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"  
+      RABBITMQ_DEFAULT_PASS: "guest"  
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+volumes:
+  rabbitmq-data:
 
 networks:
   default:

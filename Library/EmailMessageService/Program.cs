@@ -10,7 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddSingleton<IMailService, MailService>();
+builder.Services.AddHostedService<RabbitMQConsumerService>();
 
 var configuration = new ConfigurationBuilder()
         .SetBasePath(builder.Environment.ContentRootPath)

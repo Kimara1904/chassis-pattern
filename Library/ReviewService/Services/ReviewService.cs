@@ -11,21 +11,27 @@ namespace ReviewService.Services
     {
         private readonly IReviewRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IRabbitMQProducerService _rabbitmqProducerService;
 
-        public ReviewService(IReviewRepository repository, IMapper mapper)
+        public ReviewService(IReviewRepository repository, IMapper mapper, IRabbitMQProducerService rabbitmqProducerService)
         {
             _repository = repository;
             _mapper = mapper;
+            _rabbitmqProducerService = rabbitmqProducerService;
+
         }
 
         public async Task CreateReview(string username, CreateReviewDTO newReview)
         {
-            // Maybe check if there is that book
 
             var review = _mapper.Map<Review>(newReview);
 
+            review.Username = username;
+
             await _repository.Insert(review);
             await _repository.Save();
+
+            _rabbitmqProducerService.SendMailRequest("Verify Review", "You just made review. Wait for administration to verify it.", username);
         }
 
         public async Task EditReview(int id, string username, EditReviewDTO newReviewInfo)
@@ -67,7 +73,7 @@ namespace ReviewService.Services
             _repository.Update(review);
             await _repository.Save();
 
-            //Here communication with email service
+            _rabbitmqProducerService.SendMailRequest("Verify Review", string.Format("Your comment is verified with state: {0}", verifyReview.VerifiedState), review.Username);
         }
     }
 }

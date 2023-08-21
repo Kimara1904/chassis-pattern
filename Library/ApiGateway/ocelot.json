@@ -209,7 +209,7 @@
           "Port": 8083
         }
       ],
-      "SwaggerKey": "reviewsApi"
+      "SwaggerKey": "reviewApi"
     },
     {
       "UpstreamPathTemplate": "/reviews/{id}",
@@ -222,7 +222,7 @@
           "Port": 8083
         }
       ],
-      "SwaggerKey": "reviewsApi"
+      "SwaggerKey": "reviewApi"
     },
     {
       "UpstreamPathTemplate": "/reviews/verify/{id}",
@@ -235,7 +235,7 @@
           "Port": 8083
         }
       ],
-      "SwaggerKey": "reviewsApi"
+      "SwaggerKey": "reviewApi"
     },
     {
       "UpstreamPathTemplate": "/reviews/verified/{bookId}",
@@ -248,7 +248,7 @@
           "Port": 8083
         }
       ],
-      "SwaggerKey": "reviewsApi"
+      "SwaggerKey": "reviewApi"
     },
     {
       "UpstreamPathTemplate": "/reviews/unverified/{bookId}",
@@ -261,7 +261,7 @@
           "Port": 8083
         }
       ],
-      "SwaggerKey": "reviewsApi"
+      "SwaggerKey": "reviewApi"
     }
   ],
   "SwaggerEndPoints": [

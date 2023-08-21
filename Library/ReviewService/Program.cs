@@ -11,6 +11,7 @@ using ReviewService.Infrastructure;
 using ReviewService.Interfaces;
 using ReviewService.Mapper;
 using ReviewService.Repository;
+using ReviewService.Services;
 using ReviewService.Validators;
 using System.Text;
 
@@ -61,9 +62,14 @@ builder.Services.AddDbContext<ReviewDBContext>(opt => opt.UseSqlServer(builder.C
 builder.Services.AddScoped<DbContext, ReviewDBContext>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService.Services.ReviewService>();
+builder.Services.AddScoped<IRabbitMQProducerService, RabbitMQProducerService>();
 builder.Services.AddScoped<ExceptionHandler>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<ReviewBaseValidator>();
+
+var configuration = new ConfigurationBuilder()
+        .SetBasePath(builder.Environment.ContentRootPath)
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 builder.Services.AddAuthentication(options =>
 {

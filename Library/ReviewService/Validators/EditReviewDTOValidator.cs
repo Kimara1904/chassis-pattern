@@ -7,7 +7,7 @@ namespace ReviewService.Validators
     {
         public EditReviewDTOValidator()
         {
-            RuleFor(x => x.Rate).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.Rate).InclusiveBetween(0, 5);
         }
     }
 }
