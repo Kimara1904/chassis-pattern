@@ -27,6 +27,8 @@ namespace UserService.Service
             var user = userQuery.Where(u => u.Username.Equals(changeRoleDTO.UserUsername)).FirstOrDefault()
                 ?? throw new NotFoundException(string.Format("There is no user with username: {0}", changeRoleDTO.UserUsername));
             user.Role = (UserRoles)Enum.Parse(typeof(UserRoles), changeRoleDTO.NewRole);
+
+            _repository.Update(user);
             await _repository.Save();
         }
 
@@ -64,7 +66,7 @@ namespace UserService.Service
             if (newInfo.NewPassword != null)
             {
                 if (newInfo.OldPassword == null)
-                    throw new BadRequestException("If you want to change password old password is required.");
+                    throw new BadRequestException("If you want to change password, old password is required.");
 
                 if (_passwordHasher.VerifyHashedPassword(user, user.Password, newInfo.OldPassword) != PasswordVerificationResult.Success)
                     throw new ConflictException("Wrong old password.");

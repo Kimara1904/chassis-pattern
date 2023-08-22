@@ -12,17 +12,31 @@ namespace ReviewService.Services
         private readonly IReviewRepository _repository;
         private readonly IMapper _mapper;
         private readonly IRabbitMQProducerService _rabbitmqProducerService;
+        private readonly ICheckBookService _checkBookService;
 
-        public ReviewService(IReviewRepository repository, IMapper mapper, IRabbitMQProducerService rabbitmqProducerService)
+        public ReviewService(IReviewRepository repository, IMapper mapper, IRabbitMQProducerService rabbitmqProducerService,
+            ICheckBookService checkBookService)
         {
             _repository = repository;
             _mapper = mapper;
             _rabbitmqProducerService = rabbitmqProducerService;
-
+            _checkBookService = checkBookService;
         }
 
         public async Task CreateReview(string username, string email, CreateReviewDTO newReview)
         {
+            try
+            {
+                await _checkBookService.CheckBook(newReview.BookId);
+            }
+            catch (NotFoundException nfe)
+            {
+                throw nfe;
+            }
+            catch (CustomException ce)
+            {
+                throw ce;
+            }
 
             var review = _mapper.Map<Review>(newReview);
 
@@ -41,10 +55,22 @@ namespace ReviewService.Services
             var review = reviewQuery.Where(x => x.Id == id && x.Username.Equals(username) && x.Verified != Enums.ReviewVerifiedState.Denied).FirstOrDefault()
                 ?? throw new NotFoundException(string.Format("There is no review with id: {0} and username: {1}", id, username));
 
+            review.Verified = ReviewVerifiedState.Waiting;
+
             _mapper.Map<EditReviewDTO, Review>(newReviewInfo, review);
 
             _repository.Update(review);
             await _repository.Save();
+
+            _rabbitmqProducerService.SendMailRequest("Verify Review", "You just edit review. Wait for administration to verify it.", review.Email);
+        }
+
+        public async Task<List<ReviewDTO>> GetAllMyReviews(string username)
+        {
+            var reviewQuery = await _repository.GetAllAsync();
+            var reviews = reviewQuery.Where(x => x.Username.Equals(username)).ToList();
+
+            return _mapper.Map<List<ReviewDTO>>(reviews);
         }
 
         public async Task<List<ReviewDTO>> GetUnverifiedReviewsForBook(int bookId)

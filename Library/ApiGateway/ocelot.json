@@ -82,9 +82,9 @@
       "SwaggerKey": "bookApi"
     },
     {
-      "UpstreamPathTemplate": "/books/of-author{id}",
+      "UpstreamPathTemplate": "/books/of-author/{id}",
       "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/api/books/of-author{id}",
+      "DownstreamPathTemplate": "/api/books/of-author/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -134,9 +134,9 @@
       "SwaggerKey": "rentApi"
     },
     {
-      "UpstreamPathTemplate": "/rents/{book-id}",
+      "UpstreamPathTemplate": "/rents/{bookId}",
       "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/api/rents/{book-id}",
+      "DownstreamPathTemplate": "/api/rents/{bookId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -254,6 +254,19 @@
       "UpstreamPathTemplate": "/reviews/unverified/{bookId}",
       "UpstreamHttpMethod": [ "Get" ],
       "DownstreamPathTemplate": "/api/reviews/unverified/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/my",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/reviews/my",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

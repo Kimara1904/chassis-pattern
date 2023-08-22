@@ -8,7 +8,8 @@ namespace ReviewService.Mapper
     {
         public ReviewProfile()
         {
-            CreateMap<Review, ReviewDTO>();
+            CreateMap<Review, ReviewDTO>()
+                .ForMember(dest => dest.Verified, opt => opt.MapFrom(src => src.Verified.ToString()));
             CreateMap<CreateReviewDTO, Review>();
             CreateMap<EditReviewDTO, Review>()
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) =>

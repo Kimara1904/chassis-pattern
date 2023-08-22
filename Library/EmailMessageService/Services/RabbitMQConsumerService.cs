@@ -13,36 +13,16 @@ namespace EmailMessageService.Services
         private IModel _channel;
         private IMailService _mailService;
         private IConfiguration _configuration;
+        private ConnectionFactory _connectionFactory;
 
-        public RabbitMQConsumerService(IMailService mailService, IConfiguration configuration)
+        public RabbitMQConsumerService(IMailService mailService, IConfiguration configuration, ConnectionFactory connectionFactory)
         {
             _mailService = mailService;
             _configuration = configuration;
+            _connectionFactory = connectionFactory;
 
-            InitRabbitMQ();
-        }
-
-        private void InitRabbitMQ()
-        {
-            var RabbitMQServer = "";
-            var RabbitMQUserName = "";
-            var RabbutMQPassword = "";
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-            {
-                RabbitMQServer = Environment.GetEnvironmentVariable("RABBIT_MQ_SERVER");
-                RabbitMQUserName = Environment.GetEnvironmentVariable("RABBIT_MQ_USERNAME");
-                RabbutMQPassword = Environment.GetEnvironmentVariable("RABBIT_MQ_PASSWORD");
-            }
-            else
-            {
-                RabbitMQServer = _configuration["RabbitMQ:RabbitURL"];
-                RabbitMQUserName = _configuration["RabbitMQ:Username"];
-                RabbutMQPassword = _configuration["RabbitMQ:Password"];
-            }
-            var factory = new ConnectionFactory()
-            { HostName = RabbitMQServer, UserName = RabbitMQUserName, Password = RabbutMQPassword };
             // create connection
-            _connection = factory.CreateConnection();
+            _connection = _connectionFactory.CreateConnection();
             // create channel
             _channel = _connection.CreateModel();
             //Direct Exchange Details like name and type of exchange

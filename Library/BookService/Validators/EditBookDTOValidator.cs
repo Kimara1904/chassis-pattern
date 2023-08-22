@@ -8,7 +8,7 @@ namespace BookService.Validators
         public EditBookDTOValidator()
         {
             RuleFor(b => b.Title).MaximumLength(30);
-            RuleFor(b => b.Count).GreaterThan(0);
+            RuleFor(b => b.Count).GreaterThanOrEqualTo(0);
         }
     }
 }

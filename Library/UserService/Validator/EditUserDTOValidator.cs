@@ -12,7 +12,7 @@ namespace UserService.Validator
             RuleFor(user => user.NewPassword).MinimumLength(8)
                       .MaximumLength(30)
                       .Matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])")
-                      .WithMessage("Password must contain at least one uppercase, lowercase letter, digit and special character");
+                      .WithMessage("New password must contain at least one uppercase, lowercase letter, digit and special character");
             RuleFor(user => user.FirstName).MaximumLength(30);
             RuleFor(user => user.LastName).MaximumLength(30);
             RuleFor(user => user.Address).MaximumLength(40);

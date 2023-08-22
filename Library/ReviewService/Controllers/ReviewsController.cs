@@ -35,6 +35,16 @@ namespace ReviewService.Controllers
         }
 
         [Authorize]
+        [HttpGet("my")]
+        public async Task<ActionResult<List<ReviewDTO>>> GetAllMy()
+        {
+            var username = User.Claims.First(c => c.Type == "Username").Value;
+            var result = await _reviewService.GetAllMyReviews(username);
+
+            return Ok(result);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<string>> Create(CreateReviewDTO newReview)
         {

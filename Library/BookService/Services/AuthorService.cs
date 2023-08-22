@@ -38,12 +38,6 @@ namespace BookService.Services
                 return;
             }
 
-            author.Books.ForEach(b =>
-            {
-                b.AuthorId = 0;
-                _repository._bookRepository.Update(b);
-            });
-
             _repository._authorRepository.Delete(author);
             await _repository.SaveChanges();
         }

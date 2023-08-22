@@ -10,34 +10,20 @@ namespace ReviewService.Services
     public class RabbitMQProducerService : IRabbitMQProducerService
     {
         private readonly IConfiguration _configuration;
+        private readonly ConnectionFactory _connectionFactory;
 
-        public RabbitMQProducerService(IConfiguration configuration)
+        public RabbitMQProducerService(IConfiguration configuration, ConnectionFactory connectionFactory)
         {
             _configuration = configuration;
+            _connectionFactory = connectionFactory;
+
         }
 
         public void SendMailRequest(string header, string MailBody, string to)
         {
-            var RabbitMQServer = "";
-            var RabbitMQUserName = "";
-            var RabbutMQPassword = "";
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            {
-                RabbitMQServer = Environment.GetEnvironmentVariable("RABBIT_MQ_SERVER");
-                RabbitMQUserName = Environment.GetEnvironmentVariable("RABBIT_MQ_USERNAME");
-                RabbutMQPassword = Environment.GetEnvironmentVariable("RABBIT_MQ_PASSWORD");
-            }
-            else
-            {
-                RabbitMQServer = _configuration["RabbitMQ:RabbitURL"];
-                RabbitMQUserName = _configuration["RabbitMQ:Username"];
-                RabbutMQPassword = _configuration["RabbitMQ:Password"];
-            }
             try
             {
-                var factory = new ConnectionFactory()
-                { HostName = RabbitMQServer, UserName = RabbitMQUserName, Password = RabbutMQPassword };
-                using (var connection = factory.CreateConnection())
+                using (var connection = _connectionFactory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
                     //Direct Exchange Details like name and type of exchange

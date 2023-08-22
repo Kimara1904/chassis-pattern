@@ -3,11 +3,12 @@ using FluentValidation;
 
 namespace BookService.Validators
 {
-    public class RentBookDTOValidator : AbstractValidator<RentBookDTO>
+    public class ReturnDTOValidator : AbstractValidator<ReturnDTO>
     {
-        public RentBookDTOValidator()
+        public ReturnDTOValidator()
         {
             RuleFor(r => r.BookId).NotEmpty();
+            RuleFor(r => r.Username).NotEmpty();
         }
     }
 }

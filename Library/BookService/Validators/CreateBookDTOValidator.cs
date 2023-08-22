@@ -9,6 +9,7 @@ namespace BookService.Validators
         {
             RuleFor(b => b.Title).NotEmpty().MaximumLength(30);
             RuleFor(b => b.Count).NotEmpty().GreaterThan(0);
+            RuleFor(b => b.AuthorId).NotEmpty().GreaterThan(0);
         }
     }
 }

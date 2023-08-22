@@ -41,7 +41,7 @@ namespace UserService.Controllers
         public async Task<ActionResult<string>> ChangeRole(ChangeRoleDTO roleDTO)
         {
             await _userService.ChangeRole(roleDTO);
-            return Ok(string.Format("Role on user: {0} is successfully changed to role {1}.", roleDTO.UserUsername));
+            return Ok(string.Format("Role on user: {0} is successfully changed to role {1}.", roleDTO.UserUsername, roleDTO.NewRole));
         }
     }
 }

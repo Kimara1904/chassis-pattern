@@ -25,14 +25,14 @@ namespace BookService.Controllers
 
         [Authorize]
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<AuthorDTO>> GetById(int idAuhor)
+        public async Task<ActionResult<AuthorDTO>> GetById(int id)
         {
-            return await _authorService.GetAuthor(idAuhor);
+            return await _authorService.GetAuthor(id);
         }
 
         [Authorize(Roles = "Admin,Librarian")]
         [HttpPost]
-        public async Task<ActionResult<AuthorDTO>> Create([FromForm] CreateAuthorDTO newAuthor)
+        public async Task<ActionResult<AuthorDTO>> Create(CreateAuthorDTO newAuthor)
         {
             var ret = await _authorService.CreateAuthor(newAuthor);
             return Ok(ret);
@@ -40,7 +40,7 @@ namespace BookService.Controllers
 
         [Authorize(Roles = "Admin,Librarian")]
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<AuthorDTO>> Update(int id, [FromForm] EditAuthorDTO newAuthorInfo)
+        public async Task<ActionResult<AuthorDTO>> Update(int id, EditAuthorDTO newAuthorInfo)
         {
             var ret = await _authorService.UpdateAuthor(id, newAuthorInfo);
             return Ok(ret);

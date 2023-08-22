@@ -29,7 +29,7 @@ namespace BookService.Services
         public async Task<List<RentDTO>> GetRentsByBookId(int bookId)
         {
             var rentQurary = await _repository._rentRepository.GetAllAsync();
-            var rents = rentQurary.Include(r => r.Book).Where(r => r.BookId == bookId).ToList();
+            var rents = rentQurary.Include(r => r.Book).ThenInclude(b => b.Author).Where(r => r.BookId == bookId).ToList();
 
             return _mapper.Map<List<RentDTO>>(rents);
         }
@@ -50,12 +50,13 @@ namespace BookService.Services
             return _mapper.Map<List<RentDTO>>(rents);
         }
 
-        public async Task RentBook(RentBookDTO newRent)
+        public async Task RentBook(string username, RentBookDTO newRent)
         {
             _ = await _repository._bookRepository.FindAsync(newRent.BookId)
                 ?? throw new NotFoundException(string.Format("There is not book with id: {0}", newRent.BookId));
             var rent = _mapper.Map<Rent>(newRent);
 
+            rent.Username = username;
             rent.RentDate = DateTime.Now;
 
             await _repository._rentRepository.Insert(rent);
@@ -65,11 +66,14 @@ namespace BookService.Services
         public async Task ReturnBook(int bookId, string username)
         {
             var rentQurary = await _repository._rentRepository.GetAllAsync();
-            var rent = rentQurary.Where(r => r.Username.Equals(username) && r.BookId == bookId).FirstOrDefault()
+            var rent = rentQurary.Where(r => r.Username.Equals(username) && r.BookId == bookId && !r.IsReturned).FirstOrDefault()
                 ?? throw new NotFoundException(string.Format("User {0} didn't order book with id {1}", username, bookId));
 
             rent.ReturnDate = DateTime.Now;
             rent.IsReturned = true;
+
+            _repository._rentRepository.Update(rent);
+            await _repository.SaveChanges();
         }
     }
 }

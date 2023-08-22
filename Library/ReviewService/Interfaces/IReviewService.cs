@@ -8,6 +8,7 @@ namespace ReviewService.Interfaces
         Task EditReview(int id, string username, EditReviewDTO newReviewInfo);
         Task<List<ReviewDTO>> GetVerifiedReviewsForBook(int bookId);
         Task<List<ReviewDTO>> GetUnverifiedReviewsForBook(int bookId);
+        Task<List<ReviewDTO>> GetAllMyReviews(string username);
         Task VerifyReview(int id, VerifyReviewDTO verifyReview);
     }
 }

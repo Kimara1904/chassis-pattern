@@ -1,5 +1,6 @@
 using EmailMessageService.Interfaces;
 using EmailMessageService.Services;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IMailService, MailService>();
+builder.Services.AddSingleton<ConnectionFactory>(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var RabbitMQServer = builder.Configuration["RabbitMQ:RabbitURL"];
+    var RabbitMQUserName = builder.Configuration["RabbitMQ:Username"];
+    var RabbutMQPassword = builder.Configuration["RabbitMQ:Password"];
+
+    var factory = new ConnectionFactory()
+    {
+        HostName = RabbitMQServer,
+        UserName = RabbitMQUserName,
+        Password = RabbutMQPassword
+    };
+
+    return factory;
+});
 builder.Services.AddHostedService<RabbitMQConsumerService>();
 
 var configuration = new ConfigurationBuilder()

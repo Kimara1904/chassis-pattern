@@ -25,16 +25,16 @@ namespace BookService.Controllers
 
         [Authorize]
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<BookDTO>> GetById(int bookId)
+        public async Task<ActionResult<BookDTO>> GetById(int id)
         {
-            return await _bookService.GetBook(bookId);
+            return await _bookService.GetBook(id);
         }
 
         [Authorize]
         [HttpGet("of-author/{id:int}")]
-        public async Task<ActionResult<AuthorWithBooksDTO>> GetBookOfAuthor(int authorId)
+        public async Task<ActionResult<AuthorWithBooksDTO>> GetBookOfAuthor(int id)
         {
-            return await _bookService.GetBooksByAuthorsId(authorId);
+            return await _bookService.GetBooksByAuthorsId(id);
         }
 
         [Authorize(Roles = "Admin,Librarian")]
@@ -59,6 +59,14 @@ namespace BookService.Controllers
         {
             await _bookService.DeleteBook(id);
             return NoContent();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("check/{id:int}")]
+        public async Task<ActionResult> CheckBook(int id)
+        {
+            await _bookService.GetBook(id);
+            return Ok();
         }
     }
 }

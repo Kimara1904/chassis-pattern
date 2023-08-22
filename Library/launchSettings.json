@@ -13,7 +13,9 @@
         "bookservice": "StartDebugging",
         "userdb": "StartWithoutDebugging",
         "reviewservice": "StartDebugging",
-        "emailmessageservice": "StartDebugging"
+        "emailmessageservice": "StartDebugging",
+        "rabbitmq": "StartWithoutDebugging",
+        "reviewdb": "StartWithoutDebugging"
       }
     }
   }

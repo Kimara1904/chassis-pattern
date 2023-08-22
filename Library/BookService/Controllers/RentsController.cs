@@ -24,7 +24,7 @@ namespace BookService.Controllers
         }
 
         [Authorize(Roles = "Admin,Librarian")]
-        [HttpGet("{book-id:int}")]
+        [HttpGet("{bookId:int}")]
         public async Task<ActionResult<List<RentDTO>>> GetByBookId(int bookId)
         {
             return await _rentService.GetRentsByBookId(bookId);
@@ -57,13 +57,14 @@ namespace BookService.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Rent(RentBookDTO rent)
         {
-            await _rentService.RentBook(rent);
-            return Ok(string.Format("User: {0} successfully rented book with id: {1}", rent.Username, rent.BookId));
+            var username = User.Claims.First(c => c.Type == "Username").Value;
+            await _rentService.RentBook(username, rent);
+            return Ok(string.Format("User: {0} successfully rented book with id: {1}", username, rent.BookId));
         }
 
         [Authorize(Roles = "Admin,Librarian")]
         [HttpPut("return")]
-        public async Task<ActionResult<string>> Return(RentBookDTO rent)
+        public async Task<ActionResult<string>> Return(ReturnDTO rent)
         {
             await _rentService.ReturnBook(rent.BookId, rent.Username);
             return Ok(string.Format("User: {0} successfully returned book with id: {1}", rent.Username, rent.BookId));

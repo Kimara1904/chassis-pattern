@@ -18,15 +18,12 @@ namespace BookService.Services
         }
         public async Task<BookDTO> CreateBook(CreateBookDTO newBook)
         {
+            var author = await _repository._authorRepository.FindAsync(newBook.AuthorId) ??
+                throw new NotFoundException(string.Format("There is no author with id: {0}", newBook.AuthorId));
+
             var book = _mapper.Map<Book>(newBook);
 
-            if (newBook.AuthorId > 0)
-            {
-                var author = await _repository._authorRepository.FindAsync(newBook.AuthorId) ??
-                    throw new NotFoundException(string.Format("There is no author with id: {0}", newBook.AuthorId));
-
-                book.AuthorId = author.Id;
-            }
+            book.AuthorId = author.Id;
 
             if (newBook.ImageFile != null)
             {
@@ -94,6 +91,15 @@ namespace BookService.Services
 
                 book.AuthorId = author.Id;
                 book.Author = author;
+            }
+
+            if (newBookInfo.ImageFile != null)
+            {
+                using var ms = new MemoryStream();
+                newBookInfo.ImageFile.CopyTo(ms);
+                var fileBytes = ms.ToArray();
+
+                book.Image = fileBytes;
             }
 
             _mapper.Map<EditBookDTO, Book>(newBookInfo, book);

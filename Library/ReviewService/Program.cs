@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RabbitMQ.Client;
 using ReviewService.Infrastructure;
 using ReviewService.Interfaces;
 using ReviewService.Mapper;
@@ -62,7 +63,24 @@ builder.Services.AddDbContext<ReviewDBContext>(opt => opt.UseSqlServer(builder.C
 builder.Services.AddScoped<DbContext, ReviewDBContext>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService.Services.ReviewService>();
+builder.Services.AddScoped<ConnectionFactory>(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var RabbitMQServer = builder.Configuration["RabbitMQ:RabbitURL"];
+    var RabbitMQUserName = builder.Configuration["RabbitMQ:Username"];
+    var RabbutMQPassword = builder.Configuration["RabbitMQ:Password"];
+
+    var factory = new ConnectionFactory()
+    {
+        HostName = RabbitMQServer,
+        UserName = RabbitMQUserName,
+        Password = RabbutMQPassword
+    };
+
+    return factory;
+});
 builder.Services.AddScoped<IRabbitMQProducerService, RabbitMQProducerService>();
+builder.Services.AddHttpClient<ICheckBookService, CheckBookService>();
 builder.Services.AddScoped<ExceptionHandler>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<ReviewBaseValidator>();

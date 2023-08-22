@@ -8,7 +8,7 @@ namespace BookService.Interface
         Task<List<RentDTO>> GetRentsByUsername(string username);
         Task<List<RentDTO>> GetUnReturnedUsersRents(string username);
         Task<List<RentDTO>> GetRentsByBookId(int bookId);
-        Task RentBook(RentBookDTO newRent);
+        Task RentBook(string username, RentBookDTO newRent);
         Task ReturnBook(int bookId, string username);
     }
 }
