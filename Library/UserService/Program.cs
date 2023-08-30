@@ -109,15 +109,26 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
 
-    using var scope = app.Services.CreateScope();
-    var userContext = scope.ServiceProvider.GetRequiredService<UserDBContext>();
-    userContext.Database.EnsureCreated();
+app.UseSwagger();
+app.UseSwaggerUI();
+
+using var scope = app.Services.CreateScope();
+var userContext = scope.ServiceProvider.GetRequiredService<UserDBContext>();
+
+while (true)
+{
+    try
+    {
+        userContext.Database.EnsureCreated();
+        break;
+    }
+    catch (Exception)
+    {
+        Thread.Sleep(60000);
+    }
 }
+
 
 app.UseAuthentication();
 app.UseAuthorization();

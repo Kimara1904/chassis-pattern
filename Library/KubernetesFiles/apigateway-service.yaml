@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: apigateway
+  name: apigateway
+  namespace: default
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 80
+    - name: "44340"
+      port: 44340
+      targetPort: 443
+  selector:
+    io.kompose.service: apigateway
+  type: LoadBalancer
+status:
+  loadBalancer: {}

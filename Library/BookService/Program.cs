@@ -60,7 +60,8 @@ var mapperConfig = new MapperConfiguration(mc =>
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddDbContext<BookDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("BookDB")));
+builder.Services.AddDbContext<BookDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("BookDB")
+    .Replace("bookdb", Environment.GetEnvironmentVariable("DB_HOST"))));
 builder.Services.AddScoped<DbContext, BookDBContext>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
@@ -105,15 +106,26 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
-    using var scope = app.Services.CreateScope();
-    var bookContext = scope.ServiceProvider.GetRequiredService<BookDBContext>();
-    bookContext.Database.EnsureCreated();
+using var scope = app.Services.CreateScope();
+var bookContext = scope.ServiceProvider.GetRequiredService<BookDBContext>();
+
+while (true)
+{
+    try
+    {
+        bookContext.Database.EnsureCreated();
+        break;
+    }
+    catch (Exception)
+    {
+        Thread.Sleep(60000);
+    }
 }
+
+
 
 app.UseAuthentication();
 app.UseAuthorization();

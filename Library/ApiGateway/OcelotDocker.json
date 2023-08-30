@@ -1,0 +1,342 @@
+{
+  "GlobalConfiguration": {
+  },
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/auth/register",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/auth/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8081
+        }
+      ],
+      "SwaggerKey": "authApi"
+    },
+    {
+      "UpstreamPathTemplate": "/auth/login",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8081
+        }
+      ],
+      "SwaggerKey": "authApi"
+    },
+    {
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "Get", "Patch" ],
+      "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8081
+        }
+      ],
+      "SwaggerKey": "userApi"
+    },
+    {
+      "UpstreamPathTemplate": "/users/role",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/api/users/role",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8081
+        }
+      ],
+      "SwaggerKey": "userApi"
+    },
+    {
+      "UpstreamPathTemplate": "/books",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/api/books",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "bookApi"
+    },
+    {
+      "UpstreamPathTemplate": "/books/{id}",
+      "UpstreamHttpMethod": [ "Get", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/api/books/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "bookApi"
+    },
+    {
+      "UpstreamPathTemplate": "/books/of-author/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/books/of-author/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "bookApi"
+    },
+    {
+      "UpstreamPathTemplate": "/authors",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/api/authors",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "authorApi"
+    },
+    {
+      "UpstreamPathTemplate": "/authors/{id}",
+      "UpstreamHttpMethod": [ "Get", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/api/authors/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "authorApi"
+    },
+    {
+      "UpstreamPathTemplate": "/rents",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/api/rents",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "rentApi"
+    },
+    {
+      "UpstreamPathTemplate": "/rents/{bookId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/rents/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "rentApi"
+    },
+    {
+      "UpstreamPathTemplate": "/rents/{username}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/rents/{username}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "rentApi"
+    },
+    {
+      "UpstreamPathTemplate": "/rents/my",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/rents/my",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "rentApi"
+    },
+    {
+      "UpstreamPathTemplate": "/rents/my-unreturned",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/rents/my-unreturned",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "rentApi"
+    },
+    {
+      "UpstreamPathTemplate": "/rents/return",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/api/rents/return",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8082
+        }
+      ],
+      "SwaggerKey": "rentApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/reviews",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/{id}",
+      "UpstreamHttpMethod": [ "Patch" ],
+      "DownstreamPathTemplate": "/api/reviews/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/verify/{id}",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/api/reviews/verify/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/verified/{bookId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/reviews/verified/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/unverified/{bookId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/reviews/unverified/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewApi"
+    },
+    {
+      "UpstreamPathTemplate": "/reviews/my",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/reviews/my",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "host.docker.internal",
+          "Port": 8083
+        }
+      ],
+      "SwaggerKey": "reviewApi"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "authApi",
+      "Config": [
+        {
+          "Name": "Authentication API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8081/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "userApi",
+      "Config": [
+        {
+          "Name": "User API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8081/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "bookApi",
+      "Config": [
+        {
+          "Name": "Book API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8082/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "authorApi",
+      "Config": [
+        {
+          "Name": "Author API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8082/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "rentApi",
+      "Config": [
+        {
+          "Name": "Rent API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8082/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "reviewApi",
+      "Config": [
+        {
+          "Name": "Review API",
+          "Version": "v1",
+          "Url": "http://host.docker.internal:8083/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "DangerousAcceptAnyServerCertificateValidator": true
+}

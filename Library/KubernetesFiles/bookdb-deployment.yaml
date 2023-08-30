@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: bookdb
+  name: bookdb
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: bookdb
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/library-default: "true"
+        io.kompose.service: bookdb
+    spec:
+      containers:
+        - env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              value: ChassisLibrary123!
+          image: mcr.microsoft.com/mssql/server:2022-latest          
+          name: bookdb
+          ports:
+            - containerPort: 1433
+              hostPort: 1434
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}

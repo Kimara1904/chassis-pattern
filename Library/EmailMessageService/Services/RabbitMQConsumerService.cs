@@ -22,7 +22,18 @@ namespace EmailMessageService.Services
             _connectionFactory = connectionFactory;
 
             // create connection
-            _connection = _connectionFactory.CreateConnection();
+            while (true)
+            {
+                try
+                {
+                    _connection = _connectionFactory.CreateConnection();
+                    break;
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(60000);
+                }
+            }
             // create channel
             _channel = _connection.CreateModel();
             //Direct Exchange Details like name and type of exchange

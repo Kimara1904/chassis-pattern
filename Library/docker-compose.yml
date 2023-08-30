@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   apigateway:
-    image: ${DOCKER_REGISTRY-}apigateway
+    image: kimara19/chassis-apigateway:latest
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
@@ -11,9 +11,14 @@ services:
       - '44340:443'
     depends_on:
         - userservice
+        - bookservice
+        - reviewservice
+        - emailmessageservice
+    environment:
+        - CONTAINER_ENV=docker
 
   userservice:
-    image: ${DOCKER_REGISTRY-}userservice
+    image: kimara19/chassis-userservice:latest
     build:
       context: .
       dockerfile: UserService/Dockerfile
@@ -22,7 +27,8 @@ services:
       - '8081:80'
 
     depends_on:
-      - userdb
+      userdb:
+        condition: service_healthy
 
     environment:
       - DB_HOST=userdb
@@ -41,8 +47,15 @@ services:
       - SA_PASSWORD=ChassisLibrary123!
       - ACCEPT_EULA=Y
 
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "ChassisLibrary123!" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
   bookservice:
-    image: ${DOCKER_REGISTRY-}bookservice
+    image: kimara19/chassis-bookservice:latest
     build:
       context: .
       dockerfile: BookService/Dockerfile
@@ -50,7 +63,8 @@ services:
       - '8082:80'
 
     depends_on:
-      - bookdb
+      bookdb:
+        condition: service_healthy
 
     environment:
       - DB_HOST=bookdb
@@ -69,8 +83,15 @@ services:
       - SA_PASSWORD=ChassisLibrary123!
       - ACCEPT_EULA=Y
 
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "ChassisLibrary123!" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
   reviewservice:
-    image: ${DOCKER_REGISTRY-}reviewservice
+    image: kimara19/chassis-reviewservice:latest
     build:
       context: .
       dockerfile: ReviewService/Dockerfile
@@ -79,8 +100,10 @@ services:
       - '8083:80'
 
     depends_on:
-      - reviewdb
-      - rabbitmq
+      reviewdb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
 
     environment:
       - DB_HOST=reviewdb
@@ -106,14 +129,25 @@ services:
       - SA_PASSWORD=ChassisLibrary123!
       - ACCEPT_EULA=Y
 
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "ChassisLibrary123!" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
   emailmessageservice:
-    image: ${DOCKER_REGISTRY-}emailmessageservice
+    image: kimara19/chassis-emailmessageservice:latest
     build:
       context: .
       dockerfile: EmailMessageService/Dockerfile
 
+    ports:
+      - '8084:80'
+
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
     environment:
       - RABBIT_MQ_SERVER=rabbitmq
@@ -135,6 +169,11 @@ services:
       RABBITMQ_DEFAULT_PASS: "guest"  
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
 
 volumes:
   rabbitmq-data:
@@ -142,7 +181,3 @@ volumes:
 networks:
   default:
     driver: bridge
-
-
-
-

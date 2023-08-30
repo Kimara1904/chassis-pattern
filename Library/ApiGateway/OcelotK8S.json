@@ -10,7 +10,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "userservice",
           "Port": 8081
         }
       ],
@@ -23,7 +23,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "userservice",
           "Port": 8081
         }
       ],
@@ -36,7 +36,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "userservice",
           "Port": 8081
         }
       ],
@@ -49,7 +49,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "userservice",
           "Port": 8081
         }
       ],
@@ -62,7 +62,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -75,7 +75,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -88,7 +88,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -101,7 +101,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -114,7 +114,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -127,7 +127,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -140,7 +140,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -153,7 +153,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -166,7 +166,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -179,7 +179,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -192,7 +192,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "bookservice",
           "Port": 8082
         }
       ],
@@ -205,7 +205,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "reviewservice",
           "Port": 8083
         }
       ],
@@ -218,7 +218,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "reviewservice",
           "Port": 8083
         }
       ],
@@ -231,7 +231,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "reviewservice",
           "Port": 8083
         }
       ],
@@ -244,7 +244,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "reviewservice",
           "Port": 8083
         }
       ],
@@ -257,7 +257,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "reviewservice",
           "Port": 8083
         }
       ],
@@ -270,7 +270,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "host.docker.internal",
+          "Host": "reviewservice",
           "Port": 8083
         }
       ],
@@ -284,7 +284,7 @@
         {
           "Name": "Authentication API",
           "Version": "v1",
-          "Url": "http://host.docker.internal:8081/swagger/v1/swagger.json"
+          "Url": "http://userservice:8081/swagger/v1/swagger.json"
         }
       ]
     },
@@ -294,7 +294,7 @@
         {
           "Name": "User API",
           "Version": "v1",
-          "Url": "http://host.docker.internal:8081/swagger/v1/swagger.json"
+          "Url": "http://userservice:8081/swagger/v1/swagger.json"
         }
       ]
     },
@@ -304,7 +304,7 @@
         {
           "Name": "Book API",
           "Version": "v1",
-          "Url": "http://host.docker.internal:8082/swagger/v1/swagger.json"
+          "Url": "http://bookservice:8082/swagger/v1/swagger.json"
         }
       ]
     },
@@ -314,7 +314,7 @@
         {
           "Name": "Author API",
           "Version": "v1",
-          "Url": "http://host.docker.internal:8082/swagger/v1/swagger.json"
+          "Url": "http://bookservice:8082/swagger/v1/swagger.json"
         }
       ]
     },
@@ -324,7 +324,7 @@
         {
           "Name": "Rent API",
           "Version": "v1",
-          "Url": "http://host.docker.internal:8082/swagger/v1/swagger.json"
+          "Url": "http://bookservice:8082/swagger/v1/swagger.json"
         }
       ]
     },
@@ -334,7 +334,7 @@
         {
           "Name": "Review API",
           "Version": "v1",
-          "Url": "http://host.docker.internal:8083/swagger/v1/swagger.json"
+          "Url": "http://reviewservice:8083/swagger/v1/swagger.json"
         }
       ]
     }

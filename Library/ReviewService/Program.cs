@@ -59,7 +59,8 @@ var mapperConfig = new MapperConfiguration(mc =>
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddDbContext<ReviewDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("ReviewDB")));
+builder.Services.AddDbContext<ReviewDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("ReviewDB")
+    .Replace("reviewdb", Environment.GetEnvironmentVariable("DB_HOST"))));
 builder.Services.AddScoped<DbContext, ReviewDBContext>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IReviewService, ReviewService.Services.ReviewService>();
@@ -123,15 +124,25 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
-    using var scope = app.Services.CreateScope();
-    var userContext = scope.ServiceProvider.GetRequiredService<ReviewDBContext>();
-    userContext.Database.EnsureCreated();
+using var scope = app.Services.CreateScope();
+var userContext = scope.ServiceProvider.GetRequiredService<ReviewDBContext>();
+
+while (true)
+{
+    try
+    {
+        userContext.Database.EnsureCreated();
+        break;
+    }
+    catch (Exception)
+    {
+        Thread.Sleep(60000);
+    }
 }
+
 
 app.UseAuthentication();
 app.UseAuthorization();

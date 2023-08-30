@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.30.0 (9d8dcb518)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: userservice
+  name: userservice
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: userservice
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.30.0 (9d8dcb518)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/library-default: "true"
+        io.kompose.service: userservice
+    spec:
+      initContainers:
+        - name: wait-for-userdb
+          image: busybox
+          command: ['sh', '-c', 'until nc -zv userdb 1433; do echo waiting for db pod...; sleep 2; done;']
+      containers:
+        - env:
+            - name: DB_HOST
+              value: userdb
+            - name: DB_NAME
+              value: LibraryUserDB
+            - name: DB_SA_PASSWORD
+              value: ChassisLibrary123!
+          image: kimara19/chassis-userservice:latest
+          name: userservice
+          ports:
+            - containerPort: 80
+              hostPort: 8081
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}

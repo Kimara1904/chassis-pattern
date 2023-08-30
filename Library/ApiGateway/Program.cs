@@ -7,8 +7,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+string envJson = "";
+if (Environment.GetEnvironmentVariable("CONTAINER_ENV").Equals("docker"))
+{
+    envJson = "OcelotDocker.json";
+}
+else if (Environment.GetEnvironmentVariable("CONTAINER_ENV").Equals("k8s"))
+{
+    envJson = "OcelotK8S.json";
+}
+
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("Ocelot.json", optional: false, reloadOnChange: true)
+    .AddJsonFile(envJson, optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 builder.Services.AddOcelot(builder.Configuration);
 builder.Logging.ClearProviders();
@@ -22,25 +32,14 @@ builder.Services.AddSwaggerForOcelot(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseExceptionHandler("/Error");
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseExceptionHandler("/Error");
+
 
 app.UseSwaggerForOcelotUI(opt =>
 {
     opt.PathToSwaggerGenerator = "/swagger/docs";
-});
-
-app.UseCors(builder =>
-{
-    builder.WithOrigins("http://host.docker.inner:44341")
-           .AllowAnyHeader()
-           .AllowAnyMethod()
-           .AllowCredentials()
-           .WithExposedHeaders("Authorization");
 });
 
 app.UseStaticFiles();

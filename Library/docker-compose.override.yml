@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.7'
 
 services:
   apigateway:
@@ -14,7 +14,6 @@ services:
   userservice:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
       - "80"
 
