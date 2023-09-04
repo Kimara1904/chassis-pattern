@@ -5,10 +5,11 @@ After launching Docker Desktop and enabling Kubernetes within it, in \istio-1.18
     istioctl install
 
 When you see this:
-==============================================================================================================================================
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 This will install the Istio 1.18.2 default profile with ["Istio core" "Istiod" "Ingress gateways"] components into the cluster. Proceed? (y/N)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Type y and wait for the installation to finish.
-==============================================================================================================================================
+
 After that for enabling automatic Istio proxy injection run this command:
 	kubectl label namespace default istio-injection=enabled
 
@@ -18,19 +19,19 @@ In case you don't need all addons, add only kiali tool for monitoring.
 For checking pods of addons use command:
 	kubectl get pods -n istio-system
 
-==============================================================================================================================================
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 NAME                                    READY   STATUS    RESTARTS   AGE
 kiali-749d76d7bb-g9r2h                  1/1     Running   0          31s
-==============================================================================================================================================
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 When you see that all addons, which you added, are ready, you can apply all files in \Library\KubernetesFiles, in Command Prompt.
 
 When all Kubernetes pods of application are ready, which you can check with command: kubectl get pods, you can apply all files in \Library\IstioFiles, in Command Prompt.
 
 For monitoring, first use command: kubectl get svc -n istio-system, to see addons services and their ports:
-==============================================================================================================================================
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 NAME                   TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                                      AGE
 kiali                  ClusterIP      10.99.20.225     <none>        20001/TCP,9090/TCP                           50m
-==============================================================================================================================================
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 Here you can see that for kiali, port is 20001.
 Now you can expose that port with this command:
 	kubectl port-forward svc/kiali -n istio-system 20001
