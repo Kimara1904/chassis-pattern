@@ -13,6 +13,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: rabbitmq
       io.kompose.service: rabbitmq
   strategy:
     type: Recreate
@@ -23,6 +24,7 @@ spec:
         kompose.version: 1.30.0 (9d8dcb518)
       creationTimestamp: null
       labels:
+        app: rabbitmq
         io.kompose.network/library-default: "true"
         io.kompose.service: rabbitmq
     spec:

@@ -13,6 +13,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: reviewdb
       io.kompose.service: reviewdb
   strategy: {}
   template:
@@ -22,6 +23,7 @@ spec:
         kompose.version: 1.30.0 (9d8dcb518)
       creationTimestamp: null
       labels:
+        app: reviewdb
         io.kompose.network/library-default: "true"
         io.kompose.service: reviewdb
     spec:

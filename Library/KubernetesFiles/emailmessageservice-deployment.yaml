@@ -13,6 +13,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: emailmessageservice
       io.kompose.service: emailmessageservice
   strategy: {}
   template:
@@ -22,6 +23,7 @@ spec:
         kompose.version: 1.30.0 (9d8dcb518)
       creationTimestamp: null
       labels:
+        app: emailmessageservice
         io.kompose.network/library-default: "true"
         io.kompose.service: emailmessageservice
     spec:

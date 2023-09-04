@@ -15,6 +15,7 @@ spec:
       port: 8084
       targetPort: 80
   selector:
+    app: emailmessageservice
     io.kompose.service: emailmessageservice
 status:
   loadBalancer: {}

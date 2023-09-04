@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: userservice-route
+spec:
+  hosts:
+    - userservice
+  http:
+    - route:
+        - destination:
+            host: userservice
+            port:
+              number: 8081
+          weight: 60
+        - destination:
+            host: userservice-v2
+            port:
+              number: 8085
+          weight: 40

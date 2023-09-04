@@ -13,6 +13,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: apigateway
       io.kompose.service: apigateway
   strategy: {}
   template:
@@ -22,6 +23,7 @@ spec:
         kompose.version: 1.30.0 (9d8dcb518)
       creationTimestamp: null
       labels:
+        app: apigateway
         io.kompose.network/library-default: "true"
         io.kompose.service: apigateway
     spec:

@@ -18,7 +18,7 @@ spec:
       port: 44340
       targetPort: 443
   selector:
+    app: apigateway
     io.kompose.service: apigateway
-  type: LoadBalancer
 status:
   loadBalancer: {}
