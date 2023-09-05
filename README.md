@@ -45,10 +45,10 @@ After this command on your browser, at **localhost:20001**, you can access kiali
 
 After you finished with all instructions, In Postman on POST URL: **http://localhost/auth/login**, with body:
 ```
-	{
-    	"email": "admin@admin.com",
-    	"password": "Adm1n!"
-    }
+{
+	"email": "admin@admin.com",
+	"password": "Adm1n!"
+}
 ```
 If you get token, everything is ready.
 	
