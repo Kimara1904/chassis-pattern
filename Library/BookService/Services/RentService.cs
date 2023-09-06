@@ -52,13 +52,16 @@ namespace BookService.Services
 
         public async Task RentBook(string username, RentBookDTO newRent)
         {
-            _ = await _repository._bookRepository.FindAsync(newRent.BookId)
-                ?? throw new NotFoundException(string.Format("There is not book with id: {0}", newRent.BookId));
+            var bookQuery = await _repository._bookRepository.GetAllAsync();
+            var book = bookQuery.Where(b => b.Id == newRent.BookId && b.Count > 0).FirstOrDefault()
+                ?? throw new NotFoundException(string.Format("There is not available book with id: {0}", newRent.BookId));
             var rent = _mapper.Map<Rent>(newRent);
 
             rent.Username = username;
             rent.RentDate = DateTime.Now;
+            book.Count--;
 
+            _repository._bookRepository.Update(book);
             await _repository._rentRepository.Insert(rent);
             await _repository.SaveChanges();
         }
@@ -69,8 +72,16 @@ namespace BookService.Services
             var rent = rentQurary.Where(r => r.Username.Equals(username) && r.BookId == bookId && !r.IsReturned).FirstOrDefault()
                 ?? throw new NotFoundException(string.Format("User {0} didn't order book with id {1}", username, bookId));
 
+            var book = await _repository._bookRepository.FindAsync(bookId);
+
             rent.ReturnDate = DateTime.Now;
             rent.IsReturned = true;
+
+            if (book != null)
+            {
+                book.Count++;
+                _repository._bookRepository.Update(book);
+            }
 
             _repository._rentRepository.Update(rent);
             await _repository.SaveChanges();
