@@ -24,7 +24,7 @@ namespace UserService.Service
         public async Task ChangeRole(ChangeRoleDTO changeRoleDTO)
         {
             var userQuery = await _repository.GetAllAsync();
-            var user = userQuery.Where(u => u.Username.Equals(changeRoleDTO.UserUsername)).FirstOrDefault()
+            var user = userQuery.Where(u => u.Username.Equals(changeRoleDTO.UserUsername) && u.Role != UserRoles.Admin).FirstOrDefault()
                 ?? throw new NotFoundException(string.Format("There is no user with username: {0}", changeRoleDTO.UserUsername));
             user.Role = (UserRoles)Enum.Parse(typeof(UserRoles), changeRoleDTO.NewRole);
 
