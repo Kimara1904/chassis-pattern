@@ -1,0 +1,13 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: require-token-policy
+spec:
+  selector:
+    matchLabels:
+      app: reviewservice
+  action: DENY
+  rules:
+  - from:
+    - source:
+        notRequestPrincipals: ["*"]
