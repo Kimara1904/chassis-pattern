@@ -4,9 +4,13 @@ metadata:
   name: reviewservice-mirror
 spec:
   hosts:
-    - review
+    - reviewservice
   http:
-  - route:
+  - fault:
+      delay:
+        percent: 50
+        fixedDelay: 5s
+    route:
     - destination:
         host: reviewservice
         port:
@@ -17,4 +21,5 @@ spec:
       port:
         number: 8006
     mirrorPercentage: 
-      value: 100
+        value: 100 
+    

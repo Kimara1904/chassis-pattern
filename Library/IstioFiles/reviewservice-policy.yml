@@ -8,6 +8,9 @@ spec:
       app: reviewservice
   action: DENY
   rules:
-  - from:
-    - source:
-        notRequestPrincipals: ["*"]
+  - to:
+    - operation:
+        paths: ["/"]
+    when:
+    - key: request.headers[Authorization]
+      notValues: ["*"]
